@@ -1,0 +1,2 @@
+"SELECT id, due_date, author, title ".
+"FROM todo";

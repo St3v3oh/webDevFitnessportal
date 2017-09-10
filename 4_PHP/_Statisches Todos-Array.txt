@@ -1,0 +1,14 @@
+    $todo = array();
+    $todo["title"] = "Auch das noch"; 
+    $todo["author"] = "Sebastian";
+    $todo["due_date"] = "2013-08-03";
+
+    $another_todo = array();
+    $another_todo["title"] = "Darüber hinaus noch etwas <wichtig>"; 
+    $another_todo["author"] = "Marc";
+    $another_todo["due_date"] = "2013-10-03";
+
+    $todos = array();
+    $todos[] = $todo;
+    $todos[] = $another_todo;  
+    return $todos;

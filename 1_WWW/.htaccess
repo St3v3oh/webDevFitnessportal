@@ -1,0 +1,24 @@
+RewriteEngine on
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^HalloWeltAlsText$ HalloWelt.txt [qsappend,last]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^HalloWeltAlsPDF$ HalloWelt.pdf [qsappend,last]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^HalloWeltAlsPNG3$ HalloWelt.png [qsappend,last]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^HalloWeltAlsGif$ HalloWelt.gif [qsappend,last]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^HalloWeltAlsJPG$ HalloWelt.jpg [qsappend,last]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^HalloWeltAlsHTM$ HalloWelt.htm [qsappend,last]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^HalloWeltAlsDOCX$ HalloWelt.docx [qsappend,last]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^HalloWeltAlsUnbekannt$ HalloWelt.unbekannt [qsappend,last]
