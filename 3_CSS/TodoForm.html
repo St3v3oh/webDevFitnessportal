@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8"/>
     <title>Todo-Liste</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
   </head>
   <body>
-    <div>
+    <div id="header">
       <a id="home" href="..."><img src="images/home.png" alt=""/></a>
       <h1>Neues Todo</h1>
       <form id="logoff_form" action="..." method="post">
@@ -19,14 +20,18 @@
       </ul>
     </div>
     <div>
-      <form action="..." method="post">
+      <form id="todo_form" action="..." method="post">
+	  <div id="due_date_and_title_labels">
         <label for="due_date">Fällig</label><span>, </span><label for="title">Titel:</label>
+		</div>
         <input type="text" name="due_date" id="due_date" value="" />
         <input type="text" name="title" id="title" value="" />
-        <label for="notes">Notizen:</label>
+        <label for="notes" id="notes_label">Notizen:</label>
         <textarea name="notes"  id="notes" rows="10" cols="10"></textarea>
+		<div id="buttons">
         <input type="submit" name="cancel" value="Abbrechen"/>
         <input type="submit" name="save" value="Speichern"/>
+		</div>
       </form>
     </div>
   </body>
