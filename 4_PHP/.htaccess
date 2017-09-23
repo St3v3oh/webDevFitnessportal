@@ -3,3 +3,5 @@
 
 # PHP Fehler im Windows Ereignisprotokoll ausgegen
 #php_value error_log syslog
+
+ErrorDocument 404 /Bangemann/4_PHP/PageNotFound.php
