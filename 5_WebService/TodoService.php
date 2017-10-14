@@ -4,6 +4,42 @@
 		const NOT_FOUND = "NOT_FOUND";
 		const INVALID_INPUT = "INVALID_INPUT";
 		const OK = "OK";
+		const VERSION_OUTDATED = "VERSION_OUTDATED";
+		
+		public function updateTodo($todo) {
+			$link = new mysqli("localhost", "root", "", "todolist");
+			$link->set_charset("utf8");
+			$update_statement = "UPDATE todo SET ".
+								"title = '$todo->title', ".
+								"due_date = '$todo->due_date', ".
+								"notes = '$todo->notes', ".
+								"version = version + 1 ".
+								"WHERE id = $todo->id AND version = $todo->version";
+			$link->query($update_statement);
+			$affected_rows = $link->affected_rows;
+			if ($affected_rows === 0) {
+				$select_statement = "SELECT COUNT(*) FROM todo WHERE id = $todo->id";
+				$result_set = $link->query($select_statement);
+				$row = $result_set->fetch_row();
+				$count = intval($row[0]);
+				$link->close();
+				if ($count === 1) {
+					return TodoService::VERSION_OUTDATED;
+				}
+				return TodoService::NOT_FOUND;
+			}
+			else {
+				$link->close();
+			}
+		}
+		
+		public function deleteTodo($id) {
+			$link = new mysqli("localhost", "root", "", "todolist");
+			$link->set_charset("utf8");
+			$delete_statement = "DELETE FROM todo WHERE id = $id";
+			$link->query($delete_statement);
+			$link->close();
+		}
 		
 		public function createTodo($todo) {
 			if ($todo->title === "") {
@@ -20,6 +56,7 @@
 								"due_date = '$todo->due_date', ".
 								"title = '$todo->title', ".
 								"notes = '$todo->notes'";
+								"version = 1";
 			$link->query($insert_statement);
 			$id = $link->insert_id;
 			$link->close();
@@ -32,7 +69,7 @@
 		public function readTodo($id) {
 			$link = new mysqli("localhost", "root", "", "todolist");
 			$link->set_charset("utf8");
-			$select_statement = "SELECT id, created_date, due_date, ".
+			$select_statement = "SELECT id, created_date, due_date, version, ".
 								"due_date <= CURDATE() as due, author, title, notes ".
 								"FROM todo ".
 								"WHERE id = $id";
@@ -56,7 +93,7 @@
 				return TodoService::DATABASE_ERROR;
 			}
 			
-			$select_statement = "SELECT id, created_date, due_date, ".
+			$select_statement = "SELECT id, created_date, due_date, version, ".
 								"due_date <= CURDATE() as due, author, title, notes ".
 								"FROM todo ".
 								"ORDER BY due_date ASC";
