@@ -4,8 +4,12 @@ $.widget("todo.todoDetails", {
 			url: todoUrl,
 			dataType: "json",
 			success: function(todo) {
-				alert("HTTP-Antwort erhalten");
-			}
+				this.element.find(".title").text(todo.title);
+				this.element.find(".author").text(todo.author);
+				this.element.find(".due_date").text(todo.due_date);
+				this.element.find(".notes").text(todo.notes);
+			},
+			context: this
 		});
 	}
 });

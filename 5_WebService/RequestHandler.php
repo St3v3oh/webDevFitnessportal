@@ -5,6 +5,8 @@ require "CreateTodoResult.php";
 require "TodoService.php";
 require "DeleteTodoCommand.php";
 
+
+
 $config = [
   'settings' => [ 
     'displayErrorDetails' => true,
@@ -92,6 +94,7 @@ $app->delete(
 $app->put(
 	"/todos/{id}",
 	function ($request, $response, $id) {
+	
 	$todo = new Todo();
 	$todo->id = $id;
 	$todo->title = $request->getParsedBodyParam("title");
@@ -109,6 +112,13 @@ $app->put(
 	if ($result === TodoService::NOT_FOUND) {
 		$response = $response-withStatus(404);
 		return $response;
+	}
+	
+	if ($todo->title == "") {
+	$validation_messages = array();
+	$validation_messages["title"] = "Der Titel ist eine Pflichtangabe. Bitte geben Sie einen Titel an.";
+	$response = $response->withStatus(400);
+	return $response->withJson($validation_messages);
 	}
 });
 

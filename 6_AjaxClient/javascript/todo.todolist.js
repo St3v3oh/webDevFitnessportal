@@ -7,15 +7,40 @@ $.widget("todo.todoList", {
 		context: this
 	});
   },
-		
+
+reload: function() {
+	this.element.find(".todo:not(.template)").remove();
+	$.ajax({
+		dataType: "json",
+		url: "/bangemann/5_WebService/todos",
+		success: this._appendTodos,
+		context: this
+	});
+},  
 		
   _appendTodos:	function(todos) {
+			var that = this;
 			for (var i = 0; i < todos.length; i++) {
 				var todo = todos[i];
 				var todoElement = this.element.find(".template").clone().removeClass("template");
 				todoElement.find(".title").text(todo.title);
 				todoElement.find(".author").text(todo.author);
 				todoElement.find(".due_date").text(todo.due_date);
+				todoElement.click(todo.url, function(event) {
+					that._trigger("onTodoClicked", null, event.data);
+				});
+				todoElement.find(".delete_todo").click(todo.url, function(event) {
+					that._trigger("onDeleteTodoClicked", null, event.data);
+					return false;
+				});
+				todoElement.find(".edit_todo").click(todo, function(event) {
+					that._trigger("onEditTodoClicked", null, event.data);
+					return false;
+				});
+				todoElement.find(".create_todo").click(todo, function(event) {
+					that._trigger("onCreateTodoClicked", null, event.data);
+					return false;
+				});
 				this.element.append(todoElement);
 			}
   }
