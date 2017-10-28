@@ -5,5 +5,6 @@ $.widget("todo.menuBar", {
 			that._trigger("onShowTodosClicked");
 			return false;
 		});
+		
 	}
 });

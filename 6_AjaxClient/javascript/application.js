@@ -25,6 +25,9 @@ $(function() {
 			$("#todo_details").hide();
 			$("#todo_list").show();
 			$("#todo_list").todoList("reload");
+		},
+		onCreateTodoClicked: function(event, todo) {
+			$("#create_dialog").createDialog("open", todo);
 		}
 	});
 	$("#todo_list").todoList({
@@ -38,9 +41,6 @@ $(function() {
 		},
 		onEditTodoClicked: function(event, todo) {
 			$("#edit_dialog").editDialog("open", todo);
-		},
-		onCreateTodoClicked: function(event, todo) {
-			$("#create_dialog").createDialog("open", todo);
 		}
 	});
 	$("#todo_details").todoDetails();

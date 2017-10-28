@@ -14,13 +14,30 @@ Ext.application({
     name: 'Todoliste',
 
     requires: [
-        'Ext.MessageBox'
+        'Ext.MessageBox',
+		'Todoliste.plugin.PullRefresh',
+		'Todoliste.data.proxy.Rest'
     ],
 
     views: [
-        'Main'
+        'Main',
+		'TodoList',
+		'TodoForm',
+		'MessageBox'
     ],
-
+	
+	models: [
+		'Todo'
+	],
+	
+	controllers: [
+		'AppController'
+	],
+	
+	stores: [
+		'Todos'
+	],
+	
     icon: {
         '57': 'resources/icons/Icon.png',
         '72': 'resources/icons/Icon~ipad.png',

@@ -37,10 +37,6 @@ reload: function() {
 					that._trigger("onEditTodoClicked", null, event.data);
 					return false;
 				});
-				todoElement.find(".create_todo").click(todo, function(event) {
-					that._trigger("onCreateTodoClicked", null, event.data);
-					return false;
-				});
 				this.element.append(todoElement);
 			}
   }
