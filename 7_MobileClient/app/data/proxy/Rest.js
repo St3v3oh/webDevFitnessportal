@@ -13,7 +13,7 @@ Ext.define('Todoliste.data.proxy.Rest', {
     }
     
     var records = operation.getRecords();
-    request.setUrl(records[0].get('uri'));
+    request.setUrl(records[0].get('url'));
     return this.callParent([request]);
   },
 

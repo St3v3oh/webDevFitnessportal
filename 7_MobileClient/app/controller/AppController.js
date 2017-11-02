@@ -7,12 +7,17 @@ Ext.define('Todoliste.controller.AppController', {
 		},
 		'#deletebutton': {
 			tap: 'showConfirmDeleteDialog'
+		},
+		main: {
+			push: 'showDeleteButton',
+			pop: 'hideDeleteButton'
 		}
 		
 	},
 	refs: {
 		main: 'main',
-		todoForm: 'todoform'
+		todoForm: 'todoform',
+		deleteButton: '#deletebutton'
 	}
   },
   
@@ -34,6 +39,18 @@ Ext.define('Todoliste.controller.AppController', {
 	var todo = this.getTodoForm().getRecord();
 	var todos = Ext.getStore('Todos');
 	todos.remove(todo);
-	todos.sync();
-  }
+	todos.sync({
+		callback: function() {
+			this.getMain().pop();
+		},
+		scope: this
+	});
+	},
+	
+	showDeleteButton: function() {
+		this.getDeleteButton().setHidden(false);
+	},
+	hideDeleteButton: function() {
+		this.getDeleteButton().setHidden(true);
+	}
 });

@@ -12,7 +12,8 @@ Ext.define('Todoliste.view.Main', {
 					xtype: 'button',
 					text: 'Löschen',
 					align: 'right',
-					id: 'deletebutton'
+					id: 'deletebutton',
+					hidden: true
 				}
 			]
 		}
