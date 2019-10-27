@@ -17,37 +17,39 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Datenbank: `todolist`
+-- Datenbank: `fitnessportal`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `todo`
+-- Tabellenstruktur für Tabelle `fitnesskurse`
 --
 
-CREATE TABLE IF NOT EXISTS `todo` (
+CREATE TABLE IF NOT EXISTS `fitnesskurse` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `notes` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `created_date` date NOT NULL,
-  `due_date` date NOT NULL,
-  `author` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `startdate` date NOT NULL,
+  `duration` int(3) NOT NULL,
+  `trainer` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `price` float NOT NULL,
+  `numberOfPeople` int(2) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
--- Daten für Tabelle `todo`
+-- Daten für Tabelle `fitnesskurse`
 --
 
-INSERT INTO `todo` (`id`, `title`, `notes`, `created_date`, `due_date`, `author`) VALUES
-(1, 'Auch das noch', 'Auch das ist noch zu tun', '2014-04-08', '2015-08-03', 'Sebastian'),
-(2, 'Darüber hinaus noch etwas', 'Darüber hinaus ist noch etwas zu tun', '2014-04-08', '2016-10-03', 'Marc'),
-(3, 'Dies', 'Dies ist noch zu tun', '2014-04-08', '2016-10-04', 'Marc'),
-(4, 'Hier das noch <besonders wichtig>', 'Hier das ist noch zu tun', '2014-04-08', '2016-10-10', 'Marc'),
-(5, 'Noch mehr', 'Noch mehr ist zu tun', '2014-04-08', '2016-10-23', 'Sebastian'),
-(6, 'Das', 'Das ist noch zu tun', '2014-04-08', '2016-11-17', 'Patric'),
-(7, 'Jenes', 'Jenes ist noch zu tun', '2014-04-08', '2016-12-21', 'Marc');
+INSERT INTO `fitnesskurse` (`id`, `title`, `notes`, `startdate`, `duration`, `trainer`, `price`, `numberOfPeople`) VALUES
+(1, 'Kurs 1', 'Yoga', '2019-04-08', '90', 'Stefan', '50', '10'),
+(2, 'Kurs 2', 'Power Yoga', '2019-04-08', '60', 'Deniz', '30', '5'),
+(3, 'Kurs 3', 'Body Combat', '2019-04-08', '67', 'Nadine', '90', '6'),
+(4, 'Kurs 4', 'Stretching', '2019-04-08', '30', 'Deniz', '100', '2'),
+(5, 'Kurs 5', 'Body Combat', '2019-04-08', '45', 'Nadine', '150', '99'),
+(6, 'Kurs 6', 'Bauch, Beine, Po', '2019-04-08', '70', 'Stefan', '50', '10'),
+(7, 'Kurs 7', 'Achtsamkeit', '2019-04-08', '90', 'Nadine', '15', '99');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

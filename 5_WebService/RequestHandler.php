@@ -4,6 +4,7 @@ require "Todo.php";
 require "CreateTodoResult.php";
 require "TodoService.php";
 require "DeleteTodoCommand.php";
+require "DenyCachingMiddleware.php";
 
 
 
@@ -17,6 +18,7 @@ $config = [
 ];
 
 $app = new \Slim\App($config);
+$app->add(new DenyCachingMiddleware());
 
 $app->get(
   "/todos",
