@@ -1,19 +1,16 @@
 <?php
 require "vendor\autoload.php";
-require "Todo.php";
-require "CreateTodoResult.php";
-require "TodoService.php";
-require "DeleteTodoCommand.php";
+require "IgnoreCaseMiddleware.php";
 require "DenyCachingMiddleware.php";
-
+require "FitnesskursService.php";
 
 
 $config = [
-  'settings' => [ 
+  'settings' => [
     'displayErrorDetails' => true,
   ],
   'foundHandler' => function() {
-    return new \Slim\Handlers\Strategies\RequestResponseArgs();
+	return new \Slim\Handlers\Strategies\RequestResponseArgs();
   }
 ];
 
@@ -21,108 +18,73 @@ $app = new \Slim\App($config);
 $app->add(new DenyCachingMiddleware());
 
 $app->get(
-  "/todos",
+  "/fitnesskurse",
   function ($request, $response) {
-	  $todo_service = new TodoService();
-	  $todos = $todo_service->readTodos();
+	  $fitnesskurs_service = new FitnesskursService();
+	  $fitnesskurse = $fitnesskurs_service->readFitnesskurs();
 	  
-	  if ($todos === TodoService::DATABASE_ERROR) {
-		$response = $response->withStatus(500);
-		return $response;
-	  }
-	  
-	  foreach ($todos as $todo) {
-		$todo->url = "/Bangemann/5_WebService/todos/$todo->id";
-		unset($todo->id);
-	  }
-	  
-	  $response = $response->withJson($todos);
-	  return $response;
+	  foreach ($fitnesskurse as $fitnesskurs) {
+		  $fitnesskurs->url = "/Github/webDevFitnessportal/webservice/Fitnesskurs/$fitnesskurs->id";
+		  unset($fitnesskurs->id);
+  });
+ 
+$app->get(
+  "/fitnesskurse/{id}";
+  function ($request, $response, $id) {
+	$fitnesskurs_service = new FitnesskursService();
+	$fitnesskurs = $fitnesskurs_service->readFitnesskurs($id);
+	
+	unset($fitnesskurs->id);
+	$response = $response->withHeader("Etag", $fitnesskurs->version);
+	unset($fitnesskurs->version);
+	$response = $response->withJson($fitnesskurs);
+	return $response;
   });
 
-$app->get(
-	"/todos/{id}",
-	function ($request, $response, $id) {
-		$todo_service = new TodoService();
-		$todo = $todo_service->readTodo($id);
-		
-		if ($todo === TodoService::NOT_FOUND){
-			$response = $response->withStatus(404);
-			return $response;
-		}
-		
-		unset($todo->id);
-		$response = $response->withHeader("Etag", $todo->version);
-		unset($todo->version);
-		$response = $response->withJson($todo);
-		return $response;
-	});
 $app->post(
-	"/todos",
-	function ($request, $response) {
-		$todo = new Todo();
-		$todo->title = $request->getParsedBodyParam("title");
-		$todo->due_date = $request->getParsedBodyParam("due_date");
-		$todo->notes = $request->getParsedBodyParam("notes");
-		
-		$todo_service = new TodoService();
-		$result = $todo_service->createTodo($todo);
-		
-		if ($result->status_code === TodoService::INVALID_INPUT) {
-			$response = $response->withStatus(400);
-			return $response->withJson($result->validation_messages);
-		}
-		
-		$response = $response->withStatus(201);
-		$response = $response->withHeader("Location", "/Bangemann/5_WebService/todos/$result->id");
+  "/fitnesskurse/";
+  function ($request, $response) {
+	$fitnesskurs = new Fitnesskurs();
+	$fitnesskurs->title = $request->getPardesBodyParam("title");
+	
+	$fitnesskurs_service = new FitnesskursService();
+	$result = $fitnesskurs_service->createFitnesskurs($Fitnesskurs);
+	
+	if ($result->status_code ==== FitnesskursService::INVALID_INPUT){
+		$response = $response->withStatus(400);
+		$response = $response->withJson($result->validation_messages);
 		return $response;
-	});
-$app->delete(
-	"/todos/{id}",
-	function ($request, $response, $id) {
-		$todo_service = new TodoService();
-		$todo = $todo_service->deleteTodo($id);
-		
-		/*if ($todo === TodoService::NOT_FOUND){
-			$response = $response->withStatus(404);
-			return $response;
-		}
-		
-		unset($todo->id);
-		$response = $response->withJson($todo);
-		return $response;*/
-	});	
+	}
+	
+	$response = $response->withStatus(201);
+	$response = $response->withHeader("Location", "/Github/webDevFitnessportal/webservice/Fitnesskurs/$result->id");
+	return $response;
+  });
 
+$app->delete(
+  "/fitnesskurse/{id}";
+  function ($request, $response, $id) {
+	$fitnesskurs_service = new FitnesskursService();
+	$fitnesskurs_service->deleteFitnesskurs($id);	
+  });
+  
 $app->put(
-	"/todos/{id}",
-	function ($request, $response, $id) {
+  "/fitnesskurse/{id}";
+  function ($request, $response, $id) {
+	$fitnesskurs = new Fitnesskurs();
+	$fitnesskurs->id = $id;
+	$fitnesskurs->title = $request->getPardesBodyParam("title");
+	$fitnesskurs->trainer = $request->getPardesBodyParam("trainer");
+	$fitnesskurs->numberOfPeople = $request->getPardesBodyParam("numberOfPeople");
+	$fitnesskurs->version = $request->getHeaderLine("If-Match");
 	
-	$todo = new Todo();
-	$todo->id = $id;
-	$todo->title = $request->getParsedBodyParam("title");
-	$todo->due_date = $request->getParsedBodyParam("due_date");
-	$todo->notes = $request->getParsedBodyParam("notes");
-	$todo->version = $request->getHeaderLine("If-Match");
-	
-	$todo_service = new TodoService();
-	$result = $todo_service->updateTodo($todo);
-	if ($result === TodoService::VERSION_OUTDATED) {
+	$fitnesskurs_service = new FitnesskursService();
+	$result = $fitnesskurs_service->updateFitnesskurs($fitnesskurs);
+	if ($result === FitnesskursService::VERSION_OUTDATED) {
 		$response = $response->withStatus(412);
 		return $response;
 	}
-	
-	if ($result === TodoService::NOT_FOUND) {
-		$response = $response-withStatus(404);
-		return $response;
-	}
-	
-	if ($todo->title == "") {
-	$validation_messages = array();
-	$validation_messages["title"] = "Der Titel ist eine Pflichtangabe. Bitte geben Sie einen Titel an.";
-	$response = $response->withStatus(400);
-	return $response->withJson($validation_messages);
-	}
-});
-
+  });
+  
 $app->run();
 ?>
