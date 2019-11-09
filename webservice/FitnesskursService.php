@@ -97,21 +97,21 @@
 				return FitnesskursService::DATABASE_ERROR;
 			}
 			
-			$select_statement = "SELECT id, created_date, due_date, version, ".
-								"due_date <= CURDATE() as due, author, title, notes ".
+			$select_statement = "SELECT id, startdate, numberOfPeople, version, ".
+								"startdate <= CURDATE() as due, author, title ".
 								"FROM kurs ".
-								"ORDER BY due_date ASC";
+								"ORDER BY startdate ASC";
 			$result_set = $link->query($select_statement);
 			
-			$kurss = array();
+			$kurse = array();
 			$kurs = $result_set->fetch_object("Kurs");
 			while($kurs !== NULL) {
-				$kurss[] = $kurs;
+				$kurse[] = $kurs;
 				$kurs = $result_set->fetch_object("Kurs");
 			}
 			
 			$link->close();
-			return $kurss;
+			return $kurse;
 		}
 	}
 ?>
