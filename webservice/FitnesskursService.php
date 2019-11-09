@@ -1,4 +1,7 @@
 <?php
+
+require "Fitnesskurs.php";
+
 class FitnesskursService
 {
     const DATABASE_ERROR = "DATABASE_ERROR";
@@ -96,15 +99,17 @@ class FitnesskursService
 
             $connection = new PDO("mysql:host=localhost;dbname=fitnessportal;charset=UTF8", "root", "");
             $select_statement = "SELECT id, startdate, numberOfPeople, version, " .
-                "startdate <= CURDATE() as due, author, title " .
+                "startdate <= CURDATE() as due, title " .
                 "FROM fitnesskurse " .
+                "WHERE startdate <= CURDATE() " .
                 "ORDER BY startdate ASC";
             $result_set = $connection->query($select_statement);
 
-            // if ($result_set->rowCount() == 0) {
-            //     $connection = null;
-            //     return FitnesskursService::NOT_FOUND;
-            // }
+            // error_log($result_set);
+            if ($result_set->rowCount() == 0) {
+                $connection = null;
+                return FitnesskursService::NOT_FOUND;
+            }
 
             $kurse = array();
             $kurse = $result_set->fetchAll(PDO::FETCH_CLASS, "Fitnesskurs");
