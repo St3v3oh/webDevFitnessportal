@@ -3,61 +3,73 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Todo-Liste</title>
+    <title>Kurs-Liste</title>
     <link rel="stylesheet" href="./css/jquery-ui-1.10.4.css" />
     <link rel="stylesheet" href="./css/application.css" />
     <script src="./javascript/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="./javascript/jquery-ui-1.10.4.js" type="text/javascript"></script>
     <script src="./javascript/jquery.ui.datepicker-de.js" type="text/javascript"></script>
     <script src="./javascript/jquery.blockUI.js" type="text/javascript"></script>
-    <script src="./javascript/todo.todolist.js" type="text/javascript"></script>
-    <script src="./javascript/todo.tododetails.js" type="text/javascript"></script>
-    <script src="./javascript/todo.errordialog.js" type="text/javascript"></script>
-    <script src="./javascript/todo.deletedialog.js" type="text/javascript"></script>
+    <script src="./javascript/kurs.kurslist.js" type="text/javascript"></script>
+    <script src="./javascript/kurs.kursdetails.js" type="text/javascript"></script>
+    <script src="./javascript/kurs.errordialog.js" type="text/javascript"></script>
+    <!-- <script src="./javascript/todo.deletedialog.js" type="text/javascript"></script>
     <script src="./javascript/todo.editdialog.js" type="text/javascript"></script>
-    <script src="./javascript/todo.createdialog.js" type="text/javascript"></script>
-    <script src="./javascript/todo.menubar.js" type="text/javascript"></script>
+    <script src="./javascript/todo.createdialog.js" type="text/javascript"></script> -->
+    <script src="./javascript/kurs.menubar.js" type="text/javascript"></script>
     <script src="./javascript/application.js" type="text/javascript"></script>
 </head>
 
 <body>
     <div id="menu_bar">
-        <a class="show_todos" href="#">Alle Todos</a>
-        <a class="create_todo" href="#">Neues Todo</a>
+        <a class="show_kurse" href="#">Alle Kurse</a>
+        <a class="create_kurs" href="#">Neuer Kurs</a>
     </div>
     <br>
     <p>
-        <div id="todo_list">
-            <div class="todo template">
-                <span>Wer?</span>
-                <span class="author"></span>
-                <span>|</span>
-                <span>Wann?</span>
-                <span class="due_date"></span>
-                <a class="edit_todo" href="#">Bearbeiten</a>
-                <span>|</span>
-                <a class="delete_todo" href="#">Löschen</a>
-                <br>
-                <span class="title"></span>
-                <hr>
-            </div>
+        <div id="kurs_list">
+            Kurs Liste
+            <table id="kurstable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Trainer</th>
+                        <th>Wann?</th>
+                        <th>Dauer</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="kurs_list_content">
+                    <tr class="kurs template">
+                        <td class="title"></td>
+                        <td class="trainer"></td>
+                        <td class="startdate"></td>
+                        <td class="duration"></td>
+                        <td><a class="edit_kurs" href="#">Bearbeiten</a> | <a class="delete_kurs" href="#">Löschen</a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div id="todo_details">
+        <div id="kurs_details">
             <span>Wer?</span>
             <span class="author"></span>
             <span>|</span>
             <span>Wann?</span>
-            <span class="due_date"></span>
+            <span class="startdate"></span>
             <span class="title"></span>
             <span class="notes"></span>
+            <span class="duration"></span>
+            <span class="trainer"></span>
+            <span class="price"></span>
+            <span class="numberOfPeople"></span>
         </div>
         <div id="error_dialog" title="Fehler">
             <div class="message"></div>
         </div>
-        <div id="delete_dialog" title="Todo löschen">
-            <div>Möchten Sie das Todo wirklich löschen?</div>
+        <div id="delete_dialog" title="Kurs löschen">
+            <div>Möchten Sie das Kurs wirklich löschen?</div>
         </div>
-        <div id="edit_dialog" title="Todo bearbeiten">
+        <div id="edit_dialog" title="Kurs bearbeiten">
             <form>
                 <table>
                     <tr>
@@ -79,7 +91,7 @@
                 </table>
             </form>
         </div>
-        <div id="create_dialog" title="Neues Todo anlegen">
+        <div id="create_dialog" title="Neues Kurs anlegen">
             <form>
                 <table>
                     <tr>

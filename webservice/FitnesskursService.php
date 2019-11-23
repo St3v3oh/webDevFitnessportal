@@ -81,7 +81,7 @@ class FitnesskursService
         $link = new mysqli("localhost", "root", "", "fitnessportal");
         $link->set_charset("utf8");
         $select_statement = "SELECT id, created_date, due_date, version, " .
-            "due_date <= CURDATE() as due, author, title, notes " .
+            "due_date <= CURDATE() as due, title, notes " .
             "FROM kurs " .
             "WHERE id = $id";
         $result_set = $link->query($select_statement);

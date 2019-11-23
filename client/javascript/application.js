@@ -4,10 +4,10 @@ $(function () {
             return;
         }
         $("#error_dialog").errorDialog("open", response.statusText);
-        $("#todo_details").hide();
-        $("#todo_list").show();
+        $("#kurs_details").hide();
+        $("#kurs_list").show();
         if (response.status == 404) {
-            $("#todo_list").todoList("reload");
+            $("#kurs_list").kursList("reload");
         }
     });
 
@@ -23,42 +23,42 @@ $(function () {
 
     $("#error_dialog").errorDialog();
     $("#menu_bar").menuBar({
-        onShowTodosClicked: function () {
-            $("#todo_details").hide();
-            $("#todo_list").show();
-            $("#todo_list").todoList("reload");
+        onShowKurseClicked: function () {
+            $("#kurs_details").hide();
+            $("#kurs_list").show();
+            $("#kurs_list").kursList("reload");
         },
-        onCreateTodoClicked: function (event, todo) {
-            $("#create_dialog").createDialog("open", todo);
+        onCreateKursClicked: function (event, kurs) {
+            $("#create_dialog").createDialog("open", kurs);
         }
     });
-    $("#todo_list").todoList({
-        onTodoClicked: function (event, todoUrl) {
-            $("#todo_list").hide();
-            $("#todo_details").show();
-            $("#todo_details").todoDetails("load", todoUrl);
+    $("#kurs_list").kursList({
+        onKursClicked: function (event, kursUrl) {
+            $("#kurs_list").hide();
+            $("#kurs_details").show();
+            $("#kurs_details").kursDetails("load", kursUrl);
         },
-        onDeleteTodoClicked: function (event, todoUrl) {
-            $("#delete_dialog").deleteDialog("open", todoUrl);
+        onDeleteKursClicked: function (event, kursUrl) {
+            $("#delete_dialog").deleteDialog("open", kursUrl);
         },
-        onEditTodoClicked: function (event, todo) {
-            $("#edit_dialog").editDialog("open", todo);
+        onEditKursClicked: function (event, kurs) {
+            $("#edit_dialog").editDialog("open", kurs);
         }
     });
-    $("#todo_details").todoDetails();
+    $("#kurs_details").kursDetails();
     $("#delete_dialog").deleteDialog({
-        onTodoDeleted: function () {
-            $("#todo_list").todoList("reload");
+        onKursDeleted: function () {
+            $("#kurs_list").kursList("reload");
         }
     });
     $("#edit_dialog").editDialog({
-        onTodoEdited: function () {
-            $("#todo_list").todoList("reload");
+        onKursEdited: function () {
+            $("#kurs_list").kursList("reload");
         }
     });
     $("#create_dialog").createDialog({
-        onTodoCreated: function () {
-            $("#todo_list").todoList("reload");
+        onKursCreated: function () {
+            $("#kurs_list").kursList("reload");
         }
     });
 });

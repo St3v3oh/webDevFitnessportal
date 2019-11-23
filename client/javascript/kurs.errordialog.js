@@ -1,10 +1,10 @@
-$.widget("todo.errorDialog", $.ui.dialog, {  
+$.widget("kurs.errorDialog", $.ui.dialog, {  
 	options: {
 		autoOpen: false,
 		modal: true,
 		buttons: [
 			{
-				text: "Schliessen"
+				text: "Schließen"
 			}
 		]
 	},
