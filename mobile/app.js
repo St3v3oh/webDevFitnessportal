@@ -11,23 +11,23 @@
 */
 
 Ext.application({
-    name: 'Todoliste',
+    name: 'Kursliste',
 
     requires: [
         'Ext.MessageBox',
-		'Todoliste.plugin.PullRefresh',
-		'Todoliste.data.proxy.Rest'
+		'Kursliste.plugin.PullRefresh',
+		'Kursliste.data.proxy.Rest'
     ],
 
     views: [
         'Main',
-		'TodoList',
-		'TodoForm',
+		'KursList',
+		'KursForm',
 		'MessageBox'
     ],
 	
 	models: [
-		'Todo'
+		'Kurs'
 	],
 	
 	controllers: [
@@ -35,7 +35,7 @@ Ext.application({
 	],
 	
 	stores: [
-		'Todos'
+		'Kurse'
 	],
 	
     icon: {
@@ -61,7 +61,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('Todoliste.view.Main'));
+        Ext.Viewport.add(Ext.create('Kursliste.view.Main'));
     },
 
     onUpdated: function() {

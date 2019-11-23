@@ -1,9 +1,9 @@
-Ext.define('Todoliste.controller.AppController', {
+Ext.define('Kursliste.controller.AppController', {
   extend: 'Ext.app.Controller',
   config: {
 	control: {
 		todolist: {
-			itemtap: 'showTodoDetails'
+			itemtap: 'showKursDetails'
 		},
 		'#deletebutton': {
 			tap: 'showConfirmDeleteDialog'
@@ -16,30 +16,30 @@ Ext.define('Todoliste.controller.AppController', {
 	},
 	refs: {
 		main: 'main',
-		todoForm: 'todoform',
+		todoForm: 'kursform',
 		deleteButton: '#deletebutton'
 	}
   },
   
   showTodoDetails: function(list, index, target, record) {
 	var main = this.getMain();
-	var todoForm = Ext.widget('todoform');
-	todoForm.setRecord(record);
-	main.push(todoForm);
+	var kursForm = Ext.widget('kursform');
+	kursForm.setRecord(record);
+	main.push(kursForm);
   },
   
   showConfirmDeleteDialog: function() {
-	Ext.Msg.confirm('Löschen', 'Wirklich löschen?', this.deleteTodo, this);
+	Ext.Msg.confirm('Löschen', 'Wirklich löschen?', this.deleteKurs, this);
   },
   
   deleteTodo: function(buttonId) {
 	if (buttonId != 'yes') {
 		return;
 	}
-	var todo = this.getTodoForm().getRecord();
-	var todos = Ext.getStore('Todos');
-	todos.remove(todo);
-	todos.sync({
+	var kurs = this.getKursForm().getRecord();
+	var kurse = Ext.getStore('Kurse');
+	kurse.remove(kurs);
+	kurse.sync({
 		callback: function() {
 			this.getMain().pop();
 		},

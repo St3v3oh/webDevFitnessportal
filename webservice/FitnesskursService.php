@@ -103,7 +103,6 @@ class FitnesskursService
     public function readKurse()
     {
         try {
-
             $connection = new PDO("mysql:host=localhost;dbname=fitnessportal;charset=UTF8", "root", "");
             $select_statement = "SELECT id, startdate, trainer, version, " .
                 "startdate <= CURDATE() as due, title, duration " .

@@ -1,4 +1,4 @@
-Ext.define('Todoliste.view.MessageBox', {
+Ext.define('Kursliste.view.MessageBox', {
 	override: 'Ext.MessageBox',
 	statics: {
 		OK: { text: 'OK', itemId: 'ok', ui: 'action' },

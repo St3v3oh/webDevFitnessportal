@@ -1,4 +1,4 @@
-Ext.define('Todoliste.plugin.PullRefresh', {
+Ext.define('Kursliste.plugin.PullRefresh', {
   override: 'Ext.plugin.PullRefresh',
   onLatestFetched: function(operation) {
     var store = this.getList().getStore(),

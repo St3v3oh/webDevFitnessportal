@@ -1,4 +1,4 @@
-Ext.define('Todoliste.store.Todos', {
+Ext.define('Kursliste.store.Kurse', {
   extend: 'Ext.data.Store',
   requires: [
 	'Ext.data.proxy.Rest'
@@ -6,7 +6,7 @@ Ext.define('Todoliste.store.Todos', {
   config: {
     proxy: {
 		type: 'rest',
-		url: '/bangemann/5_WebService/todos',
+		url: '/fitnessportal/webservice/fitnesskurse',
 		reader: {
 			type: 'json'
 		},
@@ -16,7 +16,7 @@ Ext.define('Todoliste.store.Todos', {
 			}
 		}
 	},
-    model: 'Todoliste.model.Todo',
+    model: 'Kursliste.model.Kurs',
 	autoLoad: true
   }
 });

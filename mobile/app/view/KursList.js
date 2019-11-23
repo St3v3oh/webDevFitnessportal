@@ -1,13 +1,13 @@
-﻿Ext.define("Todoliste.view.TodoList", {
+﻿Ext.define("Kursliste.view.KursList", {
 	extend: 'Ext.dataview.List',
-	xtype: 'todolist',
+	xtype: 'kurslist',
 	requires: [
 		'Ext.plugin.PullRefresh'
 	],
 	config: {
-		store: 'Todos',
+		store: 'Kurse',
 		itemTpl: '<div>{title}</div>',
-		emptyText: 'keine Todos',
+		emptyText: 'keine Kurse',
 		plugins: [
 			{
 				type: 'pullrefresh',

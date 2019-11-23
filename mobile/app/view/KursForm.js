@@ -1,6 +1,6 @@
-Ext.define('Todoliste.view.TodoForm', {
+Ext.define('Kursliste.view.KursForm', {
 	extend: 'Ext.form.Panel',
-	xtype: 'todoform',
+	xtype: 'kursform',
 	requires: [
 		'Ext.field.DatePicker'
 	],

@@ -1,4 +1,4 @@
-Ext.define('Todoliste.data.proxy.Rest', {
+Ext.define('Kursliste.data.proxy.Rest', {
   override: 'Ext.data.proxy.Rest',
   
   config: {
