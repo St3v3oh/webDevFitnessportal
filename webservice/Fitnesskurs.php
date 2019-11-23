@@ -1,6 +1,5 @@
 <?php
   class Fitnesskurs {
-	public $id;
 	public $version;
 	public $title;
 	public $notes;
@@ -8,6 +7,7 @@
 	public $duration;
 	public $trainer;
 	public $price;
-	public $numberOfPeople;
+    public $numberOfPeople;
+    public $due;
   }
 ?>

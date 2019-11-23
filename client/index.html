@@ -3,61 +3,95 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Todo-Liste</title>
+    <title>Kurs-Liste</title>
     <link rel="stylesheet" href="./css/jquery-ui-1.10.4.css" />
     <link rel="stylesheet" href="./css/application.css" />
     <script src="./javascript/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="./javascript/jquery-ui-1.10.4.js" type="text/javascript"></script>
     <script src="./javascript/jquery.ui.datepicker-de.js" type="text/javascript"></script>
     <script src="./javascript/jquery.blockUI.js" type="text/javascript"></script>
-    <script src="./javascript/todo.todolist.js" type="text/javascript"></script>
-    <script src="./javascript/todo.tododetails.js" type="text/javascript"></script>
-    <script src="./javascript/todo.errordialog.js" type="text/javascript"></script>
-    <script src="./javascript/todo.deletedialog.js" type="text/javascript"></script>
-    <script src="./javascript/todo.editdialog.js" type="text/javascript"></script>
-    <script src="./javascript/todo.createdialog.js" type="text/javascript"></script>
-    <script src="./javascript/todo.menubar.js" type="text/javascript"></script>
+    <script src="./javascript/kurs.kurslist.js" type="text/javascript"></script>
+    <script src="./javascript/kurs.kursdetails.js" type="text/javascript"></script>
+    <script src="./javascript/kurs.errordialog.js" type="text/javascript"></script>
+    <script src="./javascript/kurs.deletedialog.js" type="text/javascript"></script>
+    <script src="./javascript/kurs.editdialog.js" type="text/javascript"></script>
+    <script src="./javascript/kurs.createdialog.js" type="text/javascript"></script>
+    <script src="./javascript/kurs.menubar.js" type="text/javascript"></script>
     <script src="./javascript/application.js" type="text/javascript"></script>
 </head>
 
 <body>
     <div id="menu_bar">
-        <a class="show_todos" href="#">Alle Todos</a>
-        <a class="create_todo" href="#">Neues Todo</a>
+        <a class="show_kurse" href="#">Alle Kurse</a>
+        <a class="create_kurs" href="#">Neuer Kurs</a>
     </div>
     <br>
     <p>
-        <div id="todo_list">
-            <div class="todo template">
-                <span>Wer?</span>
-                <span class="author"></span>
-                <span>|</span>
-                <span>Wann?</span>
-                <span class="due_date"></span>
-                <a class="edit_todo" href="#">Bearbeiten</a>
-                <span>|</span>
-                <a class="delete_todo" href="#">Löschen</a>
-                <br>
-                <span class="title"></span>
-                <hr>
-            </div>
+        <div id="kurs_list">
+            <h1>Kurs Liste</h1>
+            <table class="kurstable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Trainer</th>
+                        <th>Wann?</th>
+                        <th>Dauer</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="kurs_list_content">
+                    <tr class="kurs template">
+                        <td class="title"></td>
+                        <td class="trainer"></td>
+                        <td class="startdate"></td>
+                        <td class="duration"></td>
+                        <td><a class="edit_kurs" href="#">Bearbeiten</a> | <a class="delete_kurs" href="#">Löschen</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div id="todo_details">
-            <span>Wer?</span>
-            <span class="author"></span>
-            <span>|</span>
-            <span>Wann?</span>
-            <span class="due_date"></span>
-            <span class="title"></span>
-            <span class="notes"></span>
+        <div id="kurs_details">
+            <table class="kurstable kurstable_details">
+                <tbody>
+                    <tr>
+                        <th>Title</th>
+                        <td class="title"></td>
+                    </tr>
+                    <tr>
+                        <th>Beschreibung</th>
+                        <td class="notes"></td>
+                    </tr>
+                    <tr>
+                        <th>Trainer</th>
+                        <td class="trainer"></td>
+                    </tr>
+                    <tr>
+                        <th>Kursbeginn</th>
+                        <td class="startdate"></td>
+                    </tr>
+                    <tr>
+                        <th>Kursdauer</th>
+                        <td class="duration"></td>
+                    </tr>
+                    <tr>
+                        <th>Maximale Teilnehmerzahl</th>
+                        <td class="numberOfPeople"></td>
+                    </tr>
+                    <tr>
+                        <th>Preis</th>
+                        <td class="price"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div id="error_dialog" title="Fehler">
             <div class="message"></div>
         </div>
-        <div id="delete_dialog" title="Todo löschen">
-            <div>Möchten Sie das Todo wirklich löschen?</div>
+        <div id="delete_dialog" title="Kurs löschen">
+            <div>Möchten Sie das Kurs wirklich löschen?</div>
         </div>
-        <div id="edit_dialog" title="Todo bearbeiten">
+        <div id="edit_dialog" title="Kurs bearbeiten">
             <form>
                 <table>
                     <tr>
@@ -65,21 +99,36 @@
                         <td colspan="2"><span class="validation_message ui-state-error-text"></span></td>
                     </tr>
                     <tr>
-                        <td>
-                            <label for="due_date_field">Fällig</label>,
-                            <label for="title_field">Titel</label>:
-                        </td>
-                        <td><input id="due_date_field" type="text" /></td>
+                        <td><label for="title_field">Titel</label>:</td>
                         <td><input id="title_field" type="text" /></td>
                     </tr>
+                        <td><label for="notes_field">Beschreibung:</label></td>
+                        <td><input id="notes_field" type="text" /></td>
+                    </tr>
                     <tr>
-                        <td><label for="notes_field">Inhalt:</label></td>
-                        <td colspan="2"><textarea id="notes_field"></textarea></td>
+                        <td><label for="trainer_field">Trainer:</label></td>
+                        <td><input id="trainer_field" type="text" /></td>                    </tr>
+                    <tr>
+                    <tr>
+                        <td><label for="startdate_field">Kursbeginn:</label></td>
+                        <td><input id="startdate_field" type="datetime-local" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="duration_field">Dauer</label></td>
+                        <td><input id="duration_field" type="number" min="0" /></td>                    </tr>
+                    <tr>
+                    <tr>
+                        <td><label for="numberOfPeople_field">Maximale Teilnehmerzahl</label></td>
+                        <td><input id="numberOfPeople_field" type="number" min="0" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="price_field">Preis:</label></td>
+                        <td><input id="price_field" type="text" /></td>
                     </tr>
                 </table>
             </form>
         </div>
-        <div id="create_dialog" title="Neues Todo anlegen">
+        <div id="create_dialog" title="Neues Kurs anlegen">
             <form>
                 <table>
                     <tr>

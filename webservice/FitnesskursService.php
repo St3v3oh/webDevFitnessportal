@@ -14,7 +14,7 @@ class FitnesskursService
     {
         $link = new mysqli("localhost", "root", "", "fitnessportal");
         $link->set_charset("utf8");
-        $update_statement = "UPDATE kurs SET " .
+        $update_statement = "UPDATE fitnesskurse SET " .
             "title = '$kurs->title', " .
             "startdate = '$kurs->startdate', " .
             "duration = '$kurs->duration', " .
@@ -45,7 +45,7 @@ class FitnesskursService
     {
         $link = new mysqli("localhost", "root", "", "fitnessportal");
         $link->set_charset("utf8");
-        $delete_statement = "DELETE FROM kurs WHERE id = $id";
+        $delete_statement = "DELETE FROM fitnesskurse WHERE id = $id";
         $link->query($delete_statement);
         $link->close();
     }
@@ -61,9 +61,8 @@ class FitnesskursService
         }
         $link = new mysqli("localhost", "root", "", "fitnessportal");
         $link->set_charset("utf8");
-        $insert_statement = "INSERT INTO kurs SET " .
-            "created_date = CURDATE(), " .
-            "due_date = '$kurs->due_date', " .
+        $insert_statement = "INSERT INTO fitnesskurse SET " .
+            "startdate = '$kurs->startdate', " .
             "title = '$kurs->title', " .
             "notes = '$kurs->notes'";
         "version = 1";
@@ -76,25 +75,28 @@ class FitnesskursService
         return $result;
     }
 
-    public function readKurs($id) {
-    try {
-        $connection = new PDO("mysql:host=localhost;dbname=fitnessportal;charset=UTF8", "root", "");
-        $select_statement = "SELECT id, created_date, due_date, version, " .
-            "due_date <= CURDATE() as due, author, title, notes " .
-            "FROM kurs " .
-            "WHERE id = $id";
-        $result_set = $connection->query($select_statement);
-        if ($result_set->rowCount() === 0) {
+    public function readKurs($id)
+    {
+        try {
+            $connection = new PDO("mysql:host=localhost;dbname=fitnessportal;charset=UTF8", "root", "");
+            $select_statement = "SELECT id, startdate, duration, version, " .
+                "title, notes, trainer, price, numberOfPeople " .
+                "FROM fitnesskurse " .
+                "WHERE id = $id";
+
+            $result_set = $connection->query($select_statement);
+
+            if ($result_set->rowCount() === 0) {
+                $connection = null;
+                return FitnesskursService::NOT_FOUND;
+            }
+            $kurs = $result_set->fetchObject("Fitnesskurs");
             $connection = null;
-            return FitnesskursService::NOT_FOUND;
-        }
-        $kurs = $result_set->fetch_object("Kurs");
-        $connection = null;
-        return $kurs;
-        }
-    catch (PDOException $ex) {
-        $connection = null;    
-        return FitnesskursService::DATABASE_ERROR;
+            return $kurs;
+        } catch (PDOException $ex) {
+            $connection = null;
+            error_log("Fehler beim Datenbankzugriff: " . $ex->getMessage());
+            return FitnesskursService::DATABASE_ERROR;
         }
     }
 
@@ -103,8 +105,8 @@ class FitnesskursService
         try {
 
             $connection = new PDO("mysql:host=localhost;dbname=fitnessportal;charset=UTF8", "root", "");
-            $select_statement = "SELECT id, startdate, numberOfPeople, version, " .
-                "startdate <= CURDATE() as due, title " .
+            $select_statement = "SELECT id, startdate, trainer, version, " .
+                "startdate <= CURDATE() as due, title, duration " .
                 "FROM fitnesskurse " .
                 "WHERE startdate <= CURDATE() " .
                 "ORDER BY startdate ASC";
@@ -125,7 +127,6 @@ class FitnesskursService
             $connection = null;
             error_log("Fehler beim Datenbankzugriff: " . $ex->getMessage());
             return FitnesskursService::DATABASE_ERROR;
-
         }
     }
 }
