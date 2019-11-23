@@ -22,7 +22,9 @@ $app->get(
   function ($request, $response) {
 	  $fitnesskurs_service = new FitnesskursService();
 	  $fitnesskurse = $fitnesskurs_service->readKurse();
-	  
+    
+
+
 	  foreach ($fitnesskurse as $fitnesskurs) {
 		  $fitnesskurs->url = "/fitnessportal/webservice/fitnesskurse/$fitnesskurs->id";
           unset($fitnesskurs->id);
