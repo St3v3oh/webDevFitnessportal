@@ -34,6 +34,8 @@ $(function () {
     });
     $("#kurs_list").kursList({
         onKursClicked: function (event, kursUrl) {
+            console.log(event);
+            console.log(kursUrl);
             $("#kurs_list").hide();
             $("#kurs_details").show();
             $("#kurs_details").kursDetails("load", kursUrl);

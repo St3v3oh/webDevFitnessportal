@@ -1,4 +1,5 @@
-.template {
+.template,
+#kurs_details {
     display: none;
 }
 
@@ -6,30 +7,34 @@
     cursor: pointer;
 }
 
-#kurstable {
+.kurstable {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
 
-#kurstable td,
-#kurstable th {
+.kurstable td,
+.kurstable th {
     border: 1px solid #ddd;
     padding: 8px;
 }
 
-#kurstable tr:nth-child(even) {
+.kurstable tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-#kurstable tr:hover {
+.kurstable tr:hover {
     background-color: #ddd;
 }
 
-#kurstable th {
+.kurstable th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #4CAF50;
+    background-color: rgb(238, 165, 81);
     color: white;
-  }
+}
+
+.kurstable_details {
+    max-width: 400px;
+}

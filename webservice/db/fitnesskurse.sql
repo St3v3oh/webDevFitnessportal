@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `fitnesskurse` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `notes` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `startdate` date NOT NULL,
+  `startdate` datetime NOT NULL,
   `duration` int(3) NOT NULL,
   `trainer` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `price` float NOT NULL,

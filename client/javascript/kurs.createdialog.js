@@ -1,4 +1,4 @@
-$.widget("todo.deleteDialog", $.ui.dialog, {  
+$.widget("kurs.createDialog", $.ui.dialog, {  
 	options: {
 		autoOpen: false,
 		modal: true,
@@ -12,8 +12,8 @@ $.widget("todo.deleteDialog", $.ui.dialog, {
 		]
 	},
 	
-	open: function(todoUrl) {
-		this._todoUrl  = todoUrl;
+	open: function(kurs) {
+		this._kurs  = kurs;
 		this._super();
 	},
 	
@@ -22,13 +22,6 @@ $.widget("todo.deleteDialog", $.ui.dialog, {
 		var ok = this.options.buttons[0];
 		ok.click = function() {
 			that.close();
-			$.ajax({
-				type: "DELETE",
-				url: that._todoUrl,
-				success: function() {
-					that._trigger("onTodoDeleted");
-				}
-			});
 		};
 		var cancel = this.options.buttons[1];
 		cancel.click = function() {

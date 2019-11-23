@@ -24,7 +24,7 @@ $app->get(
 	  $fitnesskurse = $fitnesskurs_service->readKurse();
 	  
 	  foreach ($fitnesskurse as $fitnesskurs) {
-		  $fitnesskurs->url = "/fitnessportal/webservice/fitnesskurs/$fitnesskurs->id";
+		  $fitnesskurs->url = "/fitnessportal/webservice/fitnesskurse/$fitnesskurs->id";
           unset($fitnesskurs->id);
       }
       return $response->withJson($fitnesskurse);
