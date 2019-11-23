@@ -12,8 +12,7 @@ class FitnesskursService
 
     public function updateKurs($kurs)
     {
-        $link = new mysqli("localhost", "root", "", "fitnessportal");
-        $link->set_charset("utf8");
+        $connection = new PDO("mysql:host=localhost;dbname=fitnessportal;charset=UTF8", "root", "");
         $update_statement = "UPDATE fitnesskurse SET " .
             "title = '$kurs->title', " .
             "startdate = '$kurs->startdate', " .
@@ -24,20 +23,20 @@ class FitnesskursService
             "numberOfPeople = '$kurs->numberOfPeople', " .
             "version = version + 1 " .
             "WHERE id = $kurs->id AND version = $kurs->version";
-        $link->query($update_statement);
-        $affected_rows = $link->affected_rows;
+        $affected_rows = $connection->exec($update_statement);
+
         if ($affected_rows === 0) {
-            $select_statement = "SELECT COUNT(*) FROM kurs WHERE id = $kurs->id";
-            $result_set = $link->query($select_statement);
-            $row = $result_set->fetch_row();
+            $select_statement = "SELECT COUNT(*) FROM fitnesskurse WHERE id = $kurs->id";
+            $result_set = $connection->query($select_statement);
+            $row = $result_set->fetch();
             $count = intval($row[0]);
-            $link->close();
+            $connection = null;
             if ($count === 1) {
                 return FitnesskursService::VERSION_OUTDATED;
             }
             return FitnesskursService::NOT_FOUND;
         } else {
-            $link->close();
+            $connection = null;
         }
     }
 
@@ -64,7 +63,13 @@ class FitnesskursService
         $insert_statement = "INSERT INTO fitnesskurse SET " .
             "startdate = '$kurs->startdate', " .
             "title = '$kurs->title', " .
-            "notes = '$kurs->notes'";
+            "notes = '$kurs->notes'," .
+            "trainer = '$kurs->trainer'" . 
+            "duration = '$kurs->duration'" .
+            "numberOfPeople = '$kurs->numberOfPeople'" .
+            "price = '$kurs->price'" .
+            "version = version + 1 " .
+            "WHERE id = $kurs->id AND version = $kurs->version";
         "version = 1";
         $link->query($insert_statement);
         $id = $link->insert_id;
@@ -104,8 +109,8 @@ class FitnesskursService
     {
         try {
             $connection = new PDO("mysql:host=localhost;dbname=fitnessportal;charset=UTF8", "root", "");
-            $select_statement = "SELECT id, startdate, trainer, version, " .
-                "startdate <= CURDATE() as due, title, duration " .
+            $select_statement = "SELECT id, startdate, trainer, version, numberOfPeople, " .
+                "startdate <= CURDATE() as due, title, duration, price, notes " .
                 "FROM fitnesskurse " .
                 "WHERE startdate <= CURDATE() " .
                 "ORDER BY startdate ASC";

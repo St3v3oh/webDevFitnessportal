@@ -98,30 +98,32 @@
                         <td colspan="2"><span class="validation_message ui-state-error-text"></span></td>
                     </tr>
                     <tr>
-                        <td><label for="title_field">Titel</label>:</td>
+                        <td><label for="title_field">Titel *</label>:</td>
                         <td><input id="title_field" type="text" /></td>
                     </tr>
-                        <td><label for="notes_field">Beschreibung:</label></td>
-                        <td><input id="notes_field" type="text" /></td>
+                    <td><label for="notes_field">Beschreibung</label></td>
+                    <td colspan="2"><textarea id="notes_field"></textarea></td>
                     </tr>
                     <tr>
-                        <td><label for="trainer_field">Trainer:</label></td>
-                        <td><input id="trainer_field" type="text" /></td>                    </tr>
+                        <td><label for="trainer_field">Trainer *</label></td>
+                        <td><input id="trainer_field" type="text" /></td>
+                    </tr>
                     <tr>
                     <tr>
-                        <td><label for="startdate_field">Kursbeginn:</label></td>
+                        <td><label for="startdate_field">Kursbeginn *</label></td>
                         <td><input id="startdate_field" type="datetime-local" /></td>
                     </tr>
                     <tr>
-                        <td><label for="duration_field">Dauer</label></td>
-                        <td><input id="duration_field" type="number" min="0" /></td>                    </tr>
+                        <td><label for="duration_field">Dauer *</label></td>
+                        <td><input id="duration_field" type="number" min="0" /></td>
+                    </tr>
                     <tr>
                     <tr>
                         <td><label for="numberOfPeople_field">Maximale Teilnehmerzahl</label></td>
                         <td><input id="numberOfPeople_field" type="number" min="0" /></td>
                     </tr>
                     <tr>
-                        <td><label for="price_field">Preis:</label></td>
+                        <td><label for="price_field">Preis *</label></td>
                         <td><input id="price_field" type="text" /></td>
                     </tr>
                 </table>
@@ -131,20 +133,36 @@
             <form>
                 <table>
                     <tr>
-                        <td />
                         <td colspan="2"><span class="validation_message ui-state-error-text"></span></td>
                     </tr>
                     <tr>
-                        <td>
-                            <label for="due_date_field">Fällig</label>,
-                            <label for="title_field">Titel</label>:
-                        </td>
-                        <td><input id="due_date_field" type="text" /></td>
+                        <td><label for="title_field">Titel *</label></td>
                         <td><input id="title_field" type="text" /></td>
                     </tr>
+                    <td><label for="notes_field">Beschreibung</label></td>
+                    <td colspan="2"><textarea id="notes_field"></textarea></td>
+                    </tr>
                     <tr>
-                        <td><label for="notes_field">Inhalt:</label></td>
-                        <td colspan="2"><textarea id="notes_field"></textarea></td>
+                        <td><label for="trainer_field">Trainer *</label></td>
+                        <td><input id="trainer_field" type="text" /></td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td><label for="startdate_field">Kursbeginn *</label></td>
+                        <td><input id="startdate_field" type="datetime-local" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="duration_field">Dauer *</label></td>
+                        <td><input id="duration_field" type="number" min="0" /></td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td><label for="numberOfPeople_field">Maximale Teilnehmerzahl</label></td>
+                        <td><input id="numberOfPeople_field" type="number" min="0" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="price_field">Preis *</label></td>
+                        <td><input id="price_field" type="text" /></td>
                     </tr>
                 </table>
             </form>

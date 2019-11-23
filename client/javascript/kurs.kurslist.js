@@ -25,9 +25,9 @@ $.widget("kurs.kursList", {
             var kursElement = this.element.find(".template").clone().removeClass("template");
             kursElement.find(".title").text(kurs.title);
             kursElement.find(".trainer").text(kurs.trainer);
-            kursElement.find(".startdate").text(kurs.startdate);
+            kursElement.find(".startdate").text(this.formatDate(new Date(kurs.startdate)));
             kursElement.find(".duration").text(kurs.duration);
-            
+
             kursElement.click(kurs.url, function (event) {
                 that._trigger("onKursClicked", null, event.data);
             });
@@ -41,5 +41,16 @@ $.widget("kurs.kursList", {
             });
             $("#kurs_list_content").append(kursElement);
         }
+    },
+
+    formatDate: function (date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return date.getMonth() + 1 + "." + date.getDate() + "." + date.getFullYear() + "  " + strTime;
     }
 });
