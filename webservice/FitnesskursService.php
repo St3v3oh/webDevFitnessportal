@@ -76,21 +76,26 @@ class FitnesskursService
         return $result;
     }
 
-    public function readKurs($id)
-    {
-        $link = new mysqli("localhost", "root", "", "fitnessportal");
-        $link->set_charset("utf8");
+    public function readKurs($id) {
+    try {
+        $connection = new PDO("mysql:host=localhost;dbname=fitnessportal;charset=UTF8", "root", "");
         $select_statement = "SELECT id, created_date, due_date, version, " .
             "due_date <= CURDATE() as due, author, title, notes " .
             "FROM kurs " .
             "WHERE id = $id";
-        $result_set = $link->query($select_statement);
-        $kurs = $result_set->fetch_object("Kurs");
-        $link->close();
-        if ($kurs === NULL) {
+        $result_set = $connection->query($select_statement);
+        if ($result_set->rowCount() === 0) {
+            $connection = null;
             return FitnesskursService::NOT_FOUND;
         }
+        $kurs = $result_set->fetch_object("Kurs");
+        $connection = null;
         return $kurs;
+        }
+    catch (PDOException $ex) {
+        $connection = null;    
+        return FitnesskursService::DATABASE_ERROR;
+        }
     }
 
     public function readKurse()
