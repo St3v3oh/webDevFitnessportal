@@ -1,6 +1,8 @@
 <?php
 
 require "Fitnesskurs.php";
+require "CreateFitnesskursResult.php";
+require "UpdateFitnesskursResult.php";
 
 class FitnesskursService
 {
@@ -12,6 +14,30 @@ class FitnesskursService
 
     public function updateKurs($kurs)
     {
+        $result = new UpdateFitnesskursResult();
+        if ($kurs->title === "") {
+            $result->status_code = FitnesskursService::INVALID_INPUT;
+            $result->validation_messages["title"] = "Der Titel ist eine Pflichtangabe." .
+                " Bitte geben Sie einen Titel an.";
+            return $result;
+        } else if ($kurs->trainer === "") {
+            $result->status_code = FitnesskursService::INVALID_INPUT;
+            $result->validation_messages["trainer"] = "Der Trainer ist eine Pflichtangabe. Bitte geben Sie einen Trainer an.";
+            return $result;
+        } else if ($kurs->price === "") {
+            $result->status_code = FitnesskursService::INVALID_INPUT;
+            $result->validation_messages["price"] = "Der Preis ist eine Pflichtangabe. Bitte geben Sie einen Preis an.";
+            return $result;
+        } else if ($kurs->startdate === "") {
+            $result->status_code = FitnesskursService::INVALID_INPUT;
+            $result->validation_messages["startdate"] = "Der Startzeitpunkt ist eine Pflichtangabe. Bitte geben Sie einen Startzeitpunkt an.";
+            return $result;
+        } else if ($kurs->duration === "") {
+            $result->status_code = FitnesskursService::INVALID_INPUT;
+            $result->validation_messages["duration"] = "Die Dauer ist eine Pflichtangabe. Bitte geben Sie eine Dauer an.";
+            return $result;
+        }
+
         $connection = new PDO("mysql:host=localhost;dbname=fitnessportal;charset=UTF8", "root", "");
         $update_statement = "UPDATE fitnesskurse SET " .
             "title = '$kurs->title', " .
@@ -42,40 +68,54 @@ class FitnesskursService
 
     public function deleteKurs($id)
     {
-        $link = new mysqli("localhost", "root", "", "fitnessportal");
-        $link->set_charset("utf8");
+        $connection = new PDO("mysql:host=localhost;dbname=fitnessportal;charset=UTF8", "root", "");
         $delete_statement = "DELETE FROM fitnesskurse WHERE id = $id";
-        $link->query($delete_statement);
-        $link->close();
+        $connection->query($delete_statement);
+        $connection = null;
     }
 
     public function createKurs($kurs)
     {
+        $result = new CreateFitnesskursResult();
         if ($kurs->title === "") {
-            $result = new CreateKursResult();
             $result->status_code = FitnesskursService::INVALID_INPUT;
             $result->validation_messages["title"] = "Der Titel ist eine Pflichtangabe." .
                 " Bitte geben Sie einen Titel an.";
             return $result;
+        } else if ($kurs->trainer === "") {
+            $result->status_code = FitnesskursService::INVALID_INPUT;
+            $result->validation_messages["trainer"] = "Der Trainer ist eine Pflichtangabe. Bitte geben Sie einen Trainer an.";
+            return $result;
+        } else if ($kurs->price === "") {
+            $result->status_code = FitnesskursService::INVALID_INPUT;
+            $result->validation_messages["price"] = "Der Preis ist eine Pflichtangabe. Bitte geben Sie einen Preis an.";
+            return $result;
+        } else if ($kurs->startdate === "") {
+            $result->status_code = FitnesskursService::INVALID_INPUT;
+            $result->validation_messages["startdate"] = "Der Startzeitpunkt ist eine Pflichtangabe. Bitte geben Sie einen Startzeitpunkt an.";
+            return $result;
+        } else if ($kurs->duration === "") {
+            $result->status_code = FitnesskursService::INVALID_INPUT;
+            $result->validation_messages["duration"] = "Die Dauer ist eine Pflichtangabe. Bitte geben Sie eine Dauer an.";
+            return $result;
         }
-        $link = new mysqli("localhost", "root", "", "fitnessportal");
-        $link->set_charset("utf8");
+        $connection = new PDO("mysql:host=localhost;dbname=fitnessportal;charset=UTF8", "root", "");
         $insert_statement = "INSERT INTO fitnesskurse SET " .
             "startdate = '$kurs->startdate', " .
             "title = '$kurs->title', " .
             "notes = '$kurs->notes'," .
-            "trainer = '$kurs->trainer'" . 
+            "trainer = '$kurs->trainer'" .
             "duration = '$kurs->duration'" .
             "numberOfPeople = '$kurs->numberOfPeople'" .
             "price = '$kurs->price'" .
             "version = version + 1 " .
             "WHERE id = $kurs->id AND version = $kurs->version";
         "version = 1";
-        $link->query($insert_statement);
-        $id = $link->insert_id;
-        $link->close();
-        $result = new CreateKursResult();
-        $result->status_code = FitnesskursService::OK;
+        $connection->query($insert_statement);
+        $id = $connection->lastInsertId();
+        $connection = null;
+        $result = new CreatePersonalakteResult;
+        $result->status_code = PersService::OK;
         $result->id = $id;
         return $result;
     }
@@ -122,7 +162,6 @@ class FitnesskursService
                 return FitnesskursService::NOT_FOUND;
             }
 
-            $kurse = array();
             $kurse = $result_set->fetchAll(PDO::FETCH_CLASS, "Fitnesskurs");
 
             $connection = null;

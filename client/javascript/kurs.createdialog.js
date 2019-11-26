@@ -1,7 +1,8 @@
 $.widget("kurs.createDialog", $.ui.dialog, {  
 	options: {
 		autoOpen: false,
-		modal: true,
+        modal: true,
+        width: 500,
 		buttons: [
 			{
 				text: "OK"
