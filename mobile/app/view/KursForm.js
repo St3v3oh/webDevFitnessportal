@@ -14,16 +14,15 @@ Ext.define('Kursliste.view.KursForm', {
 			},
 			{
 				xtype: 'textfield',
-				name: 'author',
-				label: 'Autor',
+				name: 'trainer',
+				label: 'Trainer',
 				readOnly: true
 			},
 			{
-				xtype: 'datepickerfield',
-				name: 'due_date',
-				label: 'Fällig',
-				readOnly: true,
-				dateFormat: 'd.m.Y'
+				xtype: 'textfield',
+				name: 'startdate',
+				label: 'Datum',
+				readOnly: true
 			},
 			{
 				xtype: 'textareafield',
