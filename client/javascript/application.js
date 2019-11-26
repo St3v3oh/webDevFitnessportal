@@ -5,6 +5,7 @@ $(function () {
         }
         $("#error_dialog").errorDialog("open", response.statusText);
         $("#kurs_details").hide();
+        $("#create_dialog").hide();
         $("#kurs_list").show();
         if (response.status == 404) {
             $("#kurs_list").kursList("reload");
@@ -22,20 +23,20 @@ $(function () {
     });
 
     $("#error_dialog").errorDialog();
-    $("#menu_bar").menuBar({
+    $("#menu_bar_top").menuBar({
         onShowKurseClicked: function () {
             $("#kurs_details").hide();
             $("#kurs_list").show();
             $("#kurs_list").kursList("reload");
-        },
+        }
+    });
+    $("#menu_bar_bottom").menuBar({
         onCreateKursClicked: function (event, kurs) {
             $("#create_dialog").createDialog("open", kurs);
         }
     });
     $("#kurs_list").kursList({
         onKursClicked: function (event, kursUrl) {
-            console.log(event);
-            console.log(kursUrl);
             $("#kurs_list").hide();
             $("#kurs_details").show();
             $("#kurs_details").kursDetails("load", kursUrl);
@@ -61,7 +62,6 @@ $(function () {
     $("#create_dialog").createDialog({
         onKursCreated: function () {
             $("#kurs_list").kursList("reload");
-            console.log('hello');
         }
     });
 });

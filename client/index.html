@@ -21,9 +21,8 @@
 </head>
 
 <body>
-    <div id="menu_bar">
-        <a class="show_kurse" href="#">Alle Kurse</a>
-        <a class="create_kurs" href="#">Neuer Kurs</a>
+    <div id="menu_bar_top">
+        <a class="show_kurse button" href="#">Alle Kurse</a>
     </div>
     <br>
     <p>
@@ -45,7 +44,8 @@
                         <td class="trainer"></td>
                         <td class="startdate"></td>
                         <td class="duration"></td>
-                        <td><a class="edit_kurs" href="#">Bearbeiten</a> | <a class="delete_kurs" href="#">Löschen</a>
+                        <td><button class="edit_kurs" href="#">Bearbeiten</button>
+                            <button class="delete_kurs" href="#">Löschen</button>
                         </td>
                     </tr>
                 </tbody>
@@ -89,7 +89,7 @@
             <div class="message"></div>
         </div>
         <div id="delete_dialog" title="Kurs löschen">
-            <div>Möchten Sie das Kurs wirklich löschen?</div>
+            <div>Möchten Sie den Kurs wirklich löschen?</div>
         </div>
         <div id="edit_dialog" title="Kurs bearbeiten">
             <form>
@@ -167,6 +167,11 @@
                 </table>
             </form>
         </div>
+
+        
+    <div id="menu_bar_bottom">
+        <a class="create_kurs button" href="#">Neuer Kurs</a>
+    </div>
 </body>
 
 </html>

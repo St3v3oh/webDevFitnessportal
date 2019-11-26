@@ -25,11 +25,29 @@ Ext.define('Kursliste.view.KursForm', {
 				readOnly: true
 			},
 			{
-				xtype: 'textareafield',
+				xtype: 'textfield',
 				name: 'notes',
 				label: 'Notizen',
 				readOnly: true
-			}
+            },
+            {
+                xtype: 'textfield',
+                name: 'duration',
+                label: 'Kursdauer',
+                readOnly: true
+            },
+            {
+                xtype: 'textfield',
+                name: 'price',
+                label: 'Preis',
+                readOnly: true
+            },
+            {
+                xtype: 'textfield',
+                name: 'numberOfPeople',
+                label: 'Maximale Teilnehmeranzahl',
+                readOnly: true
+            }
 		]
 	}
 });

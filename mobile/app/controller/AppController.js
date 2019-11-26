@@ -16,7 +16,7 @@ Ext.define('Kursliste.controller.AppController', {
 	},
 	refs: {
 		main: 'main',
-		todoForm: 'kursform',
+		kursForm: 'kursform',
 		deleteButton: '#deletebutton'
 	}
   },
@@ -32,7 +32,7 @@ Ext.define('Kursliste.controller.AppController', {
 	Ext.Msg.confirm('Löschen', 'Wirklich löschen?', this.deleteKurs, this);
   },
   
-  deleteTodo: function(buttonId) {
+  deleteKurs: function(buttonId) {
 	if (buttonId != 'yes') {
 		return;
 	}

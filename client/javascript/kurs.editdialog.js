@@ -14,7 +14,6 @@ $.widget("kurs.editDialog", $.ui.dialog, {
 
     open: function (kurs) {
         this._kurs = kurs;
-        console.log(kurs);
         this.element.find(".validation_message").empty();
         this.element.find("#title_field").removeClass("ui-state-error");
         this.element.find("#title_field").val(kurs.title);
@@ -29,7 +28,7 @@ $.widget("kurs.editDialog", $.ui.dialog, {
 
     _create: function () {
         var that = this;
-        // this.element.find("#startdate_field").datepicker({ dateFormat: "yy-mm-dd" });
+
         var ok = this.options.buttons[0];
         ok.click = function () {
             var kurs = {
@@ -54,6 +53,16 @@ $.widget("kurs.editDialog", $.ui.dialog, {
 
                 },
                 error: function (response) {
+                    that.element.find(".validation_message").empty();
+                    that.element.find("#title_field").removeClass("ui-state-error");
+                    that.element.find("#title_field").val(kurs.title);
+                    that.element.find("#notes_field").val(kurs.notes);
+                    that.element.find("#trainer_field").val(kurs.trainer);
+                    that.element.find("#startdate_field").val(kurs.startdate);
+                    that.element.find("#duration_field").val(kurs.duration);
+                    that.element.find("#numberOfPeople_field").val(kurs.numberOfPeople);
+                    that.element.find("#price_field").val(kurs.price);
+
                     if (response.status == 400) {
                         var validationMessages = $.parseJSON(response.responseText);
                         if (validationMessages.title) {

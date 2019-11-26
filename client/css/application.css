@@ -1,6 +1,11 @@
 .template,
 #kurs_details {
     display: none;
+    padding: 8px;
+}
+
+#kurs_list {
+    padding: 8px;
 }
 
 .kurs {
@@ -37,4 +42,91 @@
 
 .kurstable_details {
     max-width: 400px;
+}
+
+#menu_bar_top {
+    padding: 8px;
+    background-color: rgb(238, 165, 81);
+}
+
+#menu_bar_bottom {
+    padding: 8px;
+}
+
+body {
+    margin: 0;
+}
+
+.button {
+    background-color: rgb(173, 173, 173);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button:hover {
+    background-color: rgb(80, 80, 80);
+    /* Green */
+    color: white;
+}
+
+.edit_kurs {
+    box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	background:linear-gradient(to bottom, #ffc477 5%, #fb9e25 100%);
+	background-color:#ffc477;
+	border-radius:6px;
+	border:1px solid #eeb44f;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #cc9f52;
+}
+
+.edit_kurs:hover {
+	background:linear-gradient(to bottom, #fb9e25 5%, #ffc477 100%);
+	background-color:#fb9e25;
+}
+.edit_kurs:active {
+	position:relative;
+	top:1px;
+}
+
+.delete_kurs {
+	box-shadow:inset 0px 1px 0px 0px #f5978e;
+	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	background-color:#f24537;
+	border-radius:6px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
+}
+
+.delete_kurs:hover {
+	background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	background-color:#c62d1f;
+}
+.delete_kurs:active {
+	position:relative;
+	top:1px;
 }
