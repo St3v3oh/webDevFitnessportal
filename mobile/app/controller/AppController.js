@@ -2,7 +2,7 @@ Ext.define('Kursliste.controller.AppController', {
   extend: 'Ext.app.Controller',
   config: {
 	control: {
-		todolist: {
+		kurslist: {
 			itemtap: 'showKursDetails'
 		},
 		'#deletebutton': {
@@ -21,7 +21,7 @@ Ext.define('Kursliste.controller.AppController', {
 	}
   },
   
-  showTodoDetails: function(list, index, target, record) {
+  showKursDetails: function(list, index, target, record) {
 	var main = this.getMain();
 	var kursForm = Ext.widget('kursform');
 	kursForm.setRecord(record);
