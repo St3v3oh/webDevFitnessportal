@@ -104,18 +104,16 @@ class FitnesskursService
             "startdate = '$kurs->startdate', " .
             "title = '$kurs->title', " .
             "notes = '$kurs->notes'," .
-            "trainer = '$kurs->trainer'" .
-            "duration = '$kurs->duration'" .
-            "numberOfPeople = '$kurs->numberOfPeople'" .
-            "price = '$kurs->price'" .
-            "version = version + 1 " .
-            "WHERE id = $kurs->id AND version = $kurs->version";
-        "version = 1";
+            "trainer = '$kurs->trainer', " .
+            "duration = '$kurs->duration', " .
+            "numberOfPeople = '$kurs->numberOfPeople', " .
+            "price = '$kurs->price', ".
+            "version = 1";
         $connection->query($insert_statement);
         $id = $connection->lastInsertId();
         $connection = null;
-        $result = new CreatePersonalakteResult;
-        $result->status_code = PersService::OK;
+        $result = new CreateFitnesskursResult;
+        $result->status_code = FitnesskursService::OK;
         $result->id = $id;
         return $result;
     }

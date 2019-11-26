@@ -82,7 +82,7 @@ $app->post(
         }
 
         $response = $response->withStatus(201);
-        $response = $response->withHeader("Location", "/fitnessportal/webservice/fitnesskurs/$result->id");
+        $response = $response->withHeader("Location", "/fitnessportal/webservice/fitnesskurse/$result->id");
         return $response;
     }
 );

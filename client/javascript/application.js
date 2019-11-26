@@ -61,6 +61,7 @@ $(function () {
     $("#create_dialog").createDialog({
         onKursCreated: function () {
             $("#kurs_list").kursList("reload");
+            console.log('hello');
         }
     });
 });
