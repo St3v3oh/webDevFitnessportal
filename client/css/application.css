@@ -126,7 +126,12 @@ body {
 	background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
 	background-color:#c62d1f;
 }
+
 .delete_kurs:active {
 	position:relative;
 	top:1px;
+}
+
+.over {
+    background-color: #810e05 !important;
 }

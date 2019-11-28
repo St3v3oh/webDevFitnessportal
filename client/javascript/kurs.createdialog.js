@@ -39,31 +39,43 @@ $.widget("kurs.createDialog", $.ui.dialog, {
                 success: function () {
                     that.close();
                     that._trigger("onKursCreated");
-                }
-                // error: function (response) {
-                //     that.element.find('#first_name_field').removeClass('ui-state-error');
-                //     //"if (response.responseJSON["first_name"] == "Der Vorname ist eine Pflichtangabe.")"
-                //     if (response.status == 400 && response.responseJSON["first_name"] == "Der Vorname ist eine Pflichtangabe." /*response.responseJSON == "error_first_name"*/ ) {
-                //         var validationMessages = $.parseJSON(response.responseText);
+                },
+                error: function (response) {
+                    var kurs = that._kurs;
+                    that.element.find(".validation_message").empty();
+                    that.element.find("#title_field").val(kurs.title);
+                    that.element.find("#title_field").removeClass("ui-state-error");
+                    that.element.find("#notes_field").val(kurs.notes);
+                    that.element.find("#trainer_field").val(kurs.trainer);
+                    that.element.find("#trainer_field").removeClass("ui-state-error");
+                    that.element.find("#startdate_field").val(kurs.startdate);
+                    that.element.find("#startdate_field").removeClass("ui-state-error");
+                    that.element.find("#duration_field").val(kurs.duration);
+                    that.element.find("#duration_field").removeClass("ui-state-error");
+                    that.element.find("#numberOfPeople_field").val(kurs.numberOfPeople);
+                    that.element.find("#price_field").val(kurs.price);
+                    that.element.find("#price_field").removeClass("ui-state-error");
 
-                //         console.log(validationMessages.first_name);
-                //         that.element.find(".validation_messages").text(validationMessages.first_name);
-                //         console.log(that.element.find(".validation_messages"));
-                //         that.element.find("#first_name_field").addClass("ui-state-error").focus();
-                //     } else if (response.status == 400 && response.responseJSON["last_name"] == "Der Nachname ist eine Pflichtangabe.") {
-                //         var validationMessages = $.parseJSON(response.responseText);
-                //         that.element.find(".validation_messages").text(validationMessages.last_name);
-                //         that.element.find("#last_name_field").addClass("ui-state-error").focus();
-                //     } else if (response.status == 400 && response.responseJSON == "error_prs_number") {
-                //         var validationMessages = $.parseJSON(response.responseText);
-                //         that.element.find(".validation_messages").text(validationMessages.prs_number);
-                //         that.element.find("#prs_number_field").addClass("ui-state-error").focus();
-                //     } else {
-                //         that.element.find(".validation_messages").empty();
-                //         that.element.find("#first_name_field").removeClass("ui-state-error");
-                //         that.element.find("#last_name_field").removeClass("ui-state-error");
-                //     }
-                // }
+                    if (response.status == 400) {
+                        var validationMessages = $.parseJSON(response.responseText);
+                        if (validationMessages.title) {
+                            that.element.find(".validation_message").text(validationMessages.title);
+                            that.element.find("#title_field").addClass("ui-state-error").focus();
+                        } else if (validationMessages.trainer) {
+                            that.element.find(".validation_message").text(validationMessages.trainer);
+                            that.element.find("#trainer_field").addClass("ui-state-error").focus();
+                        } else if (validationMessages.startdate) {
+                            that.element.find(".validation_message").text(validationMessages.startdate);
+                            that.element.find("#startdate_field").addClass("ui-state-error").focus();
+                        } else if (validationMessages.duration) {
+                            that.element.find(".validation_message").text(validationMessages.duration);
+                            that.element.find("#duration_field").addClass("ui-state-error").focus();
+                        } else if (validationMessages.price) {
+                            that.element.find(".validation_message").text(validationMessages.price);
+                            that.element.find("#price_field").addClass("ui-state-error").focus();
+                        }
+                    }
+                }
             });
 
         };

@@ -44,13 +44,13 @@ CREATE TABLE IF NOT EXISTS `fitnesskurse` (
 --
 
 INSERT INTO `fitnesskurse` (`id`, `title`, `notes`, `startdate`, `duration`, `trainer`, `price`, `numberOfPeople`, `version`) VALUES
-(1, 'Kurs 1', 'Yoga', '2019-04-08', '90', 'Stefan', '50', '10', 1),
-(2, 'Kurs 2', 'Power Yoga', '2019-04-08', '60', 'Deniz', '30', '5', 1),
-(3, 'Kurs 3', 'Body Combat', '2019-04-08', '67', 'Nadine', '90', '6', 1),
-(4, 'Kurs 4', 'Stretching', '2019-04-08', '30', 'Deniz', '100', '2', 1),
-(5, 'Kurs 5', 'Body Combat', '2019-04-08', '45', 'Nadine', '150', '99', 1),
-(6, 'Kurs 6', 'Bauch, Beine, Po', '2019-04-08', '70', 'Stefan', '50', '10', 1),
-(7, 'Kurs 7', 'Achtsamkeit', '2019-04-08', '90', 'Nadine', '15', '99', 1);
+(1, 'Kurs 1', 'Yoga', '2019-12-12T15:15', '90', 'Stefan', '50', '10', 1),
+(2, 'Kurs 2', 'Power Yoga', '2019-12-12T14:15', '60', 'Deniz', '30', '5', 1),
+(3, 'Kurs 3', 'Body Combat', '2019-12-12T13:15', '67', 'Nadine', '90', '6', 1),
+(4, 'Kurs 4', 'Stretching', '2019-05-12T13:17', '30', 'Deniz', '100', '2', 1),
+(5, 'Kurs 5', 'Body Combat', '2019-06-11T18:15', '45', 'Nadine', '150', '99', 1),
+(6, 'Kurs 6', 'Bauch, Beine, Po', '2019-07-10T19:50', '70', 'Stefan', '50', '10', 1),
+(7, 'Kurs 7', 'Achtsamkeit', '2019-08-09T12:05', '90', 'Nadine', '15', '99', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

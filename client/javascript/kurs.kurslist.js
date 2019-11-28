@@ -20,26 +20,59 @@ $.widget("kurs.kursList", {
 
     _appendKurse: function (kurse) {
         var that = this;
-        for (var i = 0; i < kurse.length; i++) {
-            var kurs = kurse[i];
-            var kursElement = this.element.find(".template").clone().removeClass("template");
-            kursElement.find(".title").text(kurs.title);
-            kursElement.find(".trainer").text(kurs.trainer);
-            kursElement.find(".startdate").text(this.formatDate(new Date(kurs.startdate)));
-            kursElement.find(".duration").text(kurs.duration);
+        that._kurse = kurse;
+        if (kurse.length >= 10) {
+            for (var i = 0; i < 10; i++) {
+                var kurs = kurse[i];
+                var kursElement = this.element.find(".template").clone().removeClass("template");
+                kursElement.find(".title").text(kurs.title);
+                kursElement.find(".trainer").text(kurs.trainer);
+                kursElement.find(".startdate").text(this.formatDate(new Date(kurs.startdate)));
+                kursElement.find(".duration").text(kurs.duration);
+                kursElement.click(kurs.url, function (event) {
+                    that._trigger("onKursClicked", null, event.data);
+                });
+                kursElement.find(".delete_kurs").click(kurs.url, function (event) {
+                    that._trigger("onDeleteKursClicked", null, event.data);
+                    return false;
+                });
+                kursElement.find(".edit_kurs").click(kurs, function (event) {
+                    that._trigger("onEditKursClicked", null, event.data);
+                    return false;
+                });
 
-            kursElement.click(kurs.url, function (event) {
-                that._trigger("onKursClicked", null, event.data);
-            });
-            kursElement.find(".delete_kurs").click(kurs.url, function (event) {
-                that._trigger("onDeleteKursClicked", null, event.data);
-                return false;
-            });
-            kursElement.find(".edit_kurs").click(kurs, function (event) {
-                that._trigger("onEditKursClicked", null, event.data);
-                return false;
-            });
-            $("#kurs_list_content").append(kursElement);
+                if (kurs.due === "1") {
+                    kursElement[0].classList.add('over');
+                }
+
+                $("#kurs_list_content").append(kursElement);
+            }
+        } else {
+            for (var i = 0; i < kurse.length; i++) {
+                var kurs = kurse[i];
+                var kursElement = this.element.find(".template").clone().removeClass("template");
+                kursElement.find(".title").text(kurs.title);
+                kursElement.find(".trainer").text(kurs.trainer);
+                kursElement.find(".startdate").text(this.formatDate(new Date(kurs.startdate)));
+                kursElement.find(".duration").text(kurs.duration);
+                kursElement.click(kurs.url, function (event) {
+                    that._trigger("onKursClicked", null, event.data);
+                });
+                kursElement.find(".delete_kurs").click(kurs.url, function (event) {
+                    that._trigger("onDeleteKursClicked", null, event.data);
+                    return false;
+                });
+                kursElement.find(".edit_kurs").click(kurs, function (event) {
+                    that._trigger("onEditKursClicked", null, event.data);
+                    return false;
+                });
+
+                if (kurs.due === "1") {
+                    kursElement[0].classList.add('over');
+                }
+
+                $("#kurs_list_content").append(kursElement);
+            }
         }
     },
 

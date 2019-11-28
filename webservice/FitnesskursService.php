@@ -86,10 +86,6 @@ class FitnesskursService
             $result->status_code = FitnesskursService::INVALID_INPUT;
             $result->validation_messages["trainer"] = "Der Trainer ist eine Pflichtangabe. Bitte geben Sie einen Trainer an.";
             return $result;
-        } else if ($kurs->price === "") {
-            $result->status_code = FitnesskursService::INVALID_INPUT;
-            $result->validation_messages["price"] = "Der Preis ist eine Pflichtangabe. Bitte geben Sie einen Preis an.";
-            return $result;
         } else if ($kurs->startdate === "") {
             $result->status_code = FitnesskursService::INVALID_INPUT;
             $result->validation_messages["startdate"] = "Der Startzeitpunkt ist eine Pflichtangabe. Bitte geben Sie einen Startzeitpunkt an.";
@@ -97,6 +93,10 @@ class FitnesskursService
         } else if ($kurs->duration === "") {
             $result->status_code = FitnesskursService::INVALID_INPUT;
             $result->validation_messages["duration"] = "Die Dauer ist eine Pflichtangabe. Bitte geben Sie eine Dauer an.";
+            return $result;
+        } else if ($kurs->price === "") {
+            $result->status_code = FitnesskursService::INVALID_INPUT;
+            $result->validation_messages["price"] = "Der Preis ist eine Pflichtangabe. Bitte geben Sie einen Preis an.";
             return $result;
         }
         $connection = new PDO("mysql:host=localhost;dbname=fitnessportal;charset=UTF8", "root", "");
@@ -148,14 +148,13 @@ class FitnesskursService
         try {
             $connection = new PDO("mysql:host=localhost;dbname=fitnessportal;charset=UTF8", "root", "");
             $select_statement = "SELECT id, startdate, trainer, version, numberOfPeople, " .
-                "startdate <= CURDATE() as due, title, duration, price, notes " .
+                "startdate <= CURDATE() AS due, title, duration, price, notes " .
                 "FROM fitnesskurse " .
-                "WHERE startdate <= CURDATE() " .
-                "ORDER BY startdate ASC";
+                "ORDER BY startdate DESC " .
+                "LIMIT 50";
             $result_set = $connection->query($select_statement);
 
-            // error_log($result_set);
-            if ($result_set->rowCount() == 0) {
+            if ($result_set->rowCount() === 0) {
                 $connection = null;
                 return FitnesskursService::NOT_FOUND;
             }
